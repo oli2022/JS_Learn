@@ -17,15 +17,25 @@ send.addEventListener("click", function (e) {
             console.log(thisData);
             let str = "";
             thisData.forEach(function (item) {
-                str += `
-                <li>
-                <h2>${item.ScenicSpotName}</h2>
-                <p>${item.DescriptionDetail}</p>
-                <img src="${item.Picture.PictureUrl1}" width="450px"></img>
-                </li>
-                `;
+                //判斷是否有圖片
+                if(item.Picture.PictureUrl1 !== undefined){
+                    str += `
+                    <li>
+                    <h2>${item.ScenicSpotName}</h2>
+                    <p>${item.DescriptionDetail}</p>
+                    <img src="${item.Picture.PictureUrl1}" width="450px"></img>
+                    </li>
+                    `;
+                }else{
+                    str += `
+                    <li>
+                    <h2>${item.ScenicSpotName}</h2>
+                    <p>${item.DescriptionDetail}</p>
+                    <img src="imgs/images.png" width="450px"></img>
+                    </li>
+                    `;
+                }                
             })
-
             list.innerHTML = str;
         });
 });
