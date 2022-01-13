@@ -1,9 +1,34 @@
-function init() {
-    getTourList();
-}
-init();
+//選擇器設定
+const citySelect = document.querySelector(".citySelect");
+const send = document.querySelector(".send");
+const list = document.querySelector(".list");
 
-function getTourList() {}
+send.addEventListener("click", function (e) {
+    const city = citySelect.value;
+    axios
+        .get(
+            `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/${city}?%24top=30&%24format=JSON`,
+            {
+                headers: getAuthorizationHeader(),
+            }
+        )
+        .then(function (response) {
+            const thisData = response.data;
+            console.log(thisData);
+            let str = "";
+            thisData.forEach(function (item) {
+                str += `
+                <li>
+                <h2>${item.ScenicSpotName}</h2>
+                <p>${item.DescriptionDetail}</p>
+                <img src="${item.Picture.PictureUrl1}" width="450px"></img>
+                </li>
+                `;
+            })
+
+            list.innerHTML = str;
+        });
+});
 function getAuthorizationHeader() {
     //  填入自己 ID、KEY 開始
     let AppID = "28be96d18851420bb6b4b4aa24cad688";
