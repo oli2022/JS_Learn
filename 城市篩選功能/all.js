@@ -18,7 +18,7 @@ send.addEventListener("click", function (e) {
             let str = "";
             thisData.forEach(function (item) {
                 //判斷是否有圖片
-                if(item.Picture.PictureUrl1 !== undefined){
+                if (item.Picture.PictureUrl1 !== undefined) {
                     str += `
                     <li>
                     <h2>${item.ScenicSpotName}</h2>
@@ -26,7 +26,7 @@ send.addEventListener("click", function (e) {
                     <img src="${item.Picture.PictureUrl1}" width="450px"></img>
                     </li>
                     `;
-                }else{
+                } else {
                     str += `
                     <li>
                     <h2>${item.ScenicSpotName}</h2>
@@ -34,8 +34,8 @@ send.addEventListener("click", function (e) {
                     <img src="imgs/images.png" width="450px"></img>
                     </li>
                     `;
-                }                
-            })
+                }
+            });
             list.innerHTML = str;
         });
 });
@@ -57,5 +57,3 @@ function getAuthorizationHeader() {
         '"';
     return { Authorization: Authorization, "X-Date": GMTString };
 }
-
-// https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/Taipei?%24top=30&%24format=JSON

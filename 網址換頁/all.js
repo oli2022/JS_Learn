@@ -1,5 +1,4 @@
 const list = document.querySelector(".list");
-const tourCategoly = {};
 function init() {
     getAllTour();
 }
@@ -14,27 +13,14 @@ function getAllTour() {
         )
         .then(function (response) {
             const thisData = response.data;
-            thisData.forEach(function (item) {
-                if (item.Class1 == undefined) {
-                    return;
-                } else if (tourCategoly[item.Class1] == undefined) {
-                    tourCategoly[item.Class1] = 1;
-                } else {
-                    tourCategoly[item.Class1] += 1;
-                }
-            });
-            renderCategoly();       
+            let str = "";
+            thisData.forEach(function(item){
+              console.log(item);
+              console.log(item.ScenicSpotID);
+              str +=`<li><a href="page.html?id=${item.ScenicSpotID}">${item.ScenicSpotName}</a></li>`;
+            })
+            list.innerHTML = str;
         });
-}
-//讀取、渲染
-function renderCategoly(){
-    const tourCategolyAry = Object.keys(tourCategoly);
-    console.log(tourCategolyAry);
-    let str = "";
-    tourCategolyAry.forEach(function(item){
-        str +=`<li>${item}：${tourCategoly[item]}</li>`
-    })
-    list.innerHTML = str;
 }
 function getAuthorizationHeader() {
     //  填入自己 ID、KEY 開始
