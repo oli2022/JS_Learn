@@ -1,3 +1,25 @@
+function init() {
+    getTourItem();
+}
+init();
+
+function getTourItem() {
+    const id = window.location.href.split("=")[1];
+    axios
+        .get(
+            `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/Taipei?%24format=JSON&$filter=contains(ScenicSpotID,'${id}')`,
+            {
+                headers: getAuthorizationHeader(),
+            }
+        )
+        .then(function (response) {
+          const thisData = response.data[0];
+          console.log(thisData);
+          document.querySelector(".js-title").textContent = thisData.ScenicSpotName;
+          document.querySelector(".js-img").setAttribute("src",thisData.Picture.PictureUrl1);
+          document.querySelector(".js-descriptionDetail").textContent = thisData.DescriptionDetail;
+        });
+}
 function getAuthorizationHeader() {
     //  填入自己 ID、KEY 開始
     let AppID = "28be96d18851420bb6b4b4aa24cad688";
