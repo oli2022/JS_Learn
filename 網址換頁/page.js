@@ -13,11 +13,15 @@ function getTourItem() {
             }
         )
         .then(function (response) {
-          const thisData = response.data[0];
-          console.log(thisData);
-          document.querySelector(".js-title").textContent = thisData.ScenicSpotName;
-          document.querySelector(".js-img").setAttribute("src",thisData.Picture.PictureUrl1);
-          document.querySelector(".js-descriptionDetail").textContent = thisData.DescriptionDetail;
+            const thisData = response.data[0];
+            console.log(thisData);
+            document.querySelector(".js-title").textContent =
+                thisData.ScenicSpotName;
+            document
+                .querySelector(".js-img")
+                .setAttribute("src", thisData.Picture.PictureUrl1);
+            document.querySelector(".js-descriptionDetail").textContent =
+                thisData.DescriptionDetail;
         });
 }
 function getAuthorizationHeader() {
