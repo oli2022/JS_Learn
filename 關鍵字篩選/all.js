@@ -1,12 +1,14 @@
 const txt = document.querySelector(".txt");
 const send = document.querySelector(".send");
 const list = document.querySelector(".list");
+const citySelect = document.querySelector(".citySelect");
 send.addEventListener("click", function (e) {
     const keyWord = txt.value;
+    const city = citySelect.value;
     txt.value = "";
     axios
         .get(
-            `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?%24filter=contains(ScenicSpotName,'${keyWord}')&%24format=JSON`,
+            `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/${city}?%24filter=contains(ScenicSpotName,'${keyWord}')&%24format=JSON`,
             {
                 headers: getAuthorizationHeader(),
             }
@@ -15,7 +17,12 @@ send.addEventListener("click", function (e) {
             const thisData = response.data;
             let str = "";
             thisData.forEach(function (item) {
-                str += `<li><a href="page.html?id=${item.ScenicSpotID}>${item.ScenicSpotName}</a></li>`;
+                str += `<li>
+                <a href="page.html?id=${item.ScenicSpotID}>
+                <h2>${item.ScenicSpotName}</h2>
+                </a>
+                ${item.City}
+                </li>`;
             });
             list.innerHTML = str;
         });
